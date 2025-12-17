@@ -19,8 +19,8 @@ static SaberTrail* leftTrail;
 static TrailElementCollection* leftTrailElements;
 static RainbowManager leftRainbow, rightRainbow;
 
-MAKE_AUTO_HOOK_MATCH(SaberModelController_Init, &SaberModelController::Init, void, SaberModelController* self, Transform* parent, Saber* saber) {
-    SaberModelController_Init(self, parent, saber);
+MAKE_AUTO_HOOK_MATCH(SaberModelController_Init, &SaberModelController::Init, void, SaberModelController* self, Transform* parent, Saber* saber, Color color) {
+    SaberModelController_Init(self, parent, saber, color);
 
     float thickness = getConfig().SaberWidth.GetValue();
     float length = getConfig().SaberLength.GetValue();
@@ -110,7 +110,7 @@ MAKE_AUTO_HOOK_MATCH(
         trailElementCollection->Interpolate(0, byref(lerpState), byref(position), byref(normal), byref(time));
         for (int i = 0; i < self->_granularity; i++) {
             float timeDelta = TimeHelper::get_time() - time;
-            float y = timeDelta / self->_trailDuration;
+            float y = timeDelta * self->____inverseTrailDuration;
             normal = Vector3::op_Multiply(normal, self->_trailWidth * 0.5);
             auto vector = Vector3::op_Addition(position, normal);
             auto vector2 = position;

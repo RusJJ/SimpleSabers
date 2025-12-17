@@ -12,8 +12,8 @@ DECLARE_CONFIG(Config) {
     CONFIG_VALUE(Opacity, float, "Trail Opacity", 1);
     CONFIG_VALUE(Rainbow, bool, "Rainbow Trail", false);
     CONFIG_VALUE(Colors, bool, "Override Trail Colors", false);
-    CONFIG_VALUE(LeftColor, UnityEngine::Color, "Left Color", {});
-    CONFIG_VALUE(RightColor, UnityEngine::Color, "Right Color", {});
+    CONFIG_VALUE(LeftColor, UnityEngine::Color, "Left Color", UnityEngine::Color());
+    CONFIG_VALUE(RightColor, UnityEngine::Color, "Right Color", UnityEngine::Color());
 };
 
 static constexpr float defaultHandleLength = 0.17;
