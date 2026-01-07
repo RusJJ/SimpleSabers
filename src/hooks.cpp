@@ -25,12 +25,27 @@ MAKE_AUTO_HOOK_MATCH(SaberModelController_Init, &SaberModelController::Init, voi
     float thickness = getConfig().SaberWidth.GetValue();
     float length = getConfig().SaberLength.GetValue();
 
-    auto transform = self->transform;
-    transform->Find("BasicSaber")->localScale = {thickness, thickness, length};
-    transform->Find("BasicSaber")->localPosition = {0, 0, defaultHandleLength * (length - 1)};
-    transform->Find("FakeGlow0")->localScale = {thickness, length, thickness};
-    transform->Find("FakeGlow0")->localPosition = {0, 0, length + defaultHandleLength * (length - 1)};
-    transform->Find("FakeGlow1")->localScale = {thickness, length, thickness};
+    if(self->transform.isAlive()) {
+        auto transform = self->transform;
+        
+        auto basicSaber = transform->Find("BasicSaber");
+        if(basicSaber.isAlive()) {
+            basicSaber->localScale = {thickness, thickness, length};
+            basicSaber->localPosition = {0, 0, defaultHandleLength * (length - 1)};
+        }
+
+        auto fakeGlow0 = transform->Find("FakeGlow0");
+        if(fakeGlow0.isAlive()) {
+            fakeGlow0->localScale = {thickness, length, thickness};
+            fakeGlow0->localPosition = {0, 0, length + defaultHandleLength * (length - 1)};
+        }
+
+        auto fakeGlow1 = transform->Find("FakeGlow1");
+        if(fakeGlow1.isAlive()) {
+            fakeGlow1->localScale = {thickness, length, thickness};
+            fakeGlow1->localPosition = {0, 0, length + defaultHandleLength * (length - 1)};
+        }
+    }
 
     if (saber->saberType == SaberType::SaberA) {
         leftTrail = self->_saberTrail;
